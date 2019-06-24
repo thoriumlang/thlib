@@ -18,7 +18,7 @@ package org.thoriumlang.thlib.types;
 import java.util.Objects;
 import java.util.Optional;
 
-public class ThLazyBoolean implements ThLazy<ThBoolean> {
+public class ThLazyBoolean implements ThLazy<Boolean> {
     public static final ThLazyBoolean TRUE = new ThLazyBoolean(() -> true);
     public static final ThLazyBoolean FALSE = new ThLazyBoolean(() -> false);
 
@@ -29,8 +29,8 @@ public class ThLazyBoolean implements ThLazy<ThBoolean> {
     }
 
     @Override
-    public ThBoolean eval() {
-        return value.eval() ? ThBoolean.TRUE : ThBoolean.FALSE;
+    public Boolean eval() {
+        return value.eval();
     }
 
     @Override
@@ -55,7 +55,7 @@ public class ThLazyBoolean implements ThLazy<ThBoolean> {
     }
 
     public ThLazyBoolean not() {
-        return new ThLazyBoolean(() -> value.eval() ? Boolean.FALSE : Boolean.TRUE);
+        return new ThLazyBoolean(() -> !value.eval());
     }
 
     public <T> ThLazy<Optional<T>> then(ThLazy<T> whenTrue) {

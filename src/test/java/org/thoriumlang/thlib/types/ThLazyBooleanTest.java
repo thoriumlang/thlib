@@ -34,9 +34,9 @@ class ThLazyBooleanTest {
     @Test
     void eval() {
         Assertions.assertThat(ThLazyBoolean.FALSE.eval())
-                .isEqualTo(ThBoolean.FALSE);
+                .isFalse();
         Assertions.assertThat(ThLazyBoolean.TRUE.eval())
-                .isEqualTo(ThBoolean.TRUE);
+                .isTrue();
     }
 
     @Test
