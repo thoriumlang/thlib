@@ -17,14 +17,31 @@ package org.thoriumlang.thlib.pattern;
 
 import org.thoriumlang.thlib.types.ThLazy;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 public class ThPatternMatcher<R> {
     private final List<ThPattern<R>> patterns;
 
     public ThPatternMatcher(List<ThPattern<R>> patterns) {
         this.patterns = patterns;
+    }
+
+    public ThPatternMatcher() {
+        this(Collections.emptyList());
+    }
+
+    public ThPatternMatcher<R> when(Class<?> clazz, Function<Object, R> f) {
+        ArrayList<ThPattern<R>> list = new ArrayList<>(patterns);
+        list.add(new ThPattern<>(clazz, f));
+        return new ThPatternMatcher<>(list);
+    }
+
+    public ThPatternMatcher<R> otherwise(Function<Object, R> f) {
+        return when(Object.class, f);
     }
 
     public Optional<R> eval(ThLazy<Object> value) {

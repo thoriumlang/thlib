@@ -37,4 +37,23 @@ public class ThPatternMatcherTest {
         Assertions.assertThat(matcher.eval(() -> true))
                 .isNotPresent();
     }
+
+    @Test
+    void match2() {
+        ThPatternMatcher<String> matcher = new ThPatternMatcher<String>()
+                .when(Integer.class, v -> String.format("Integer: %d", v))
+                .when(String.class, v -> String.format("String: %s", v));
+
+        Assertions.assertThat(matcher.eval(() -> "string"))
+                .hasValue("String: string");
+        Assertions.assertThat(matcher.eval(() -> 1))
+                .hasValue("Integer: 1");
+        Assertions.assertThat(matcher.eval(() -> true))
+                .isNotPresent();
+
+        matcher = matcher.otherwise(v -> String.format("Other: %s", v));
+        Assertions.assertThat(matcher.eval(() -> true))
+                .hasValue("Other: true");
+
+    }
 }
