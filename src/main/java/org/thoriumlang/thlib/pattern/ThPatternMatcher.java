@@ -36,12 +36,20 @@ public class ThPatternMatcher<R> {
 
     public ThPatternMatcher<R> when(Class<?> clazz, Function<Object, R> f) {
         ArrayList<ThPattern<R>> list = new ArrayList<>(patterns);
-        list.add(new ThPattern<>(clazz, f));
+        list.add(new ThClassPattern<>(clazz, f));
+        return new ThPatternMatcher<>(list);
+    }
+
+    public ThPatternMatcher<R> when(Object o, Function<Object, R> f) {
+        ArrayList<ThPattern<R>> list = new ArrayList<>(patterns);
+        list.add(new ThObjectPattern<>(o, f));
         return new ThPatternMatcher<>(list);
     }
 
     public ThPatternMatcher<R> otherwise(Function<Object, R> f) {
-        return when(Object.class, f);
+        ArrayList<ThPattern<R>> list = new ArrayList<>(patterns);
+        list.add(new ThTruePattern<>(f));
+        return new ThPatternMatcher<>(list);
     }
 
     public Optional<R> eval(ThLazy<Object> value) {
@@ -49,7 +57,7 @@ public class ThPatternMatcher<R> {
         return patterns.stream()
                 .filter(p -> p.matches(v))
                 .findFirst()
-                .orElse(new ThPattern<>(null, x -> null))
+                .orElse(new ThTruePattern<>(x -> null))
                 .eval(v);
     }
 }

@@ -15,10 +15,21 @@
  */
 package org.thoriumlang.thlib.pattern;
 
-import java.util.Optional;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-public interface ThPattern<R> {
-    boolean matches(Object value);
+class ThTruePatternTest {
+    @Test
+    void matches() {
+        Assertions.assertThat(
+                new ThTruePattern<>(x -> x).matches("any")
+        ).isTrue();
+    }
 
-    Optional<R> eval(Object value);
+    @Test
+    void eval() {
+        Assertions.assertThat(
+                new ThTruePattern<>(x -> x).eval("any")
+        ).hasValue("any");
+    }
 }

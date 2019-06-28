@@ -20,13 +20,13 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-public class ThPatternMatcherTest {
+class ThPatternMatcherTest {
     @Test
     void match() {
         ThPatternMatcher<String> matcher = new ThPatternMatcher<>(
                 Arrays.asList(
-                        new ThPattern<>(Integer.class, v -> String.format("Integer: %d", v)),
-                        new ThPattern<>(String.class, v -> String.format("String: %s", v))
+                        new ThClassPattern<>(Integer.class, v -> String.format("Integer: %d", v)),
+                        new ThClassPattern<>(String.class, v -> String.format("String: %s", v))
                 )
         );
 
@@ -50,6 +50,10 @@ public class ThPatternMatcherTest {
                 .hasValue("Integer: 1");
         Assertions.assertThat(matcher.eval(() -> true))
                 .isNotPresent();
+
+        matcher = matcher.when(1L, v -> "This is a long!");
+        Assertions.assertThat(matcher.eval(() -> 1L))
+                .hasValue("This is a long!");
 
         matcher = matcher.otherwise(v -> String.format("Other: %s", v));
         Assertions.assertThat(matcher.eval(() -> true))

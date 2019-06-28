@@ -16,9 +16,22 @@
 package org.thoriumlang.thlib.pattern;
 
 import java.util.Optional;
+import java.util.function.Function;
 
-public interface ThPattern<R> {
-    boolean matches(Object value);
+public class ThClassPattern<R> implements ThPattern<R> {
+    private final Class<?> clazz;
+    private final Function<Object, R> f;
 
-    Optional<R> eval(Object value);
+    public ThClassPattern(Class<?> clazz, Function<Object, R> f) {
+        this.clazz = clazz;
+        this.f = f;
+    }
+
+    public boolean matches(Object value) {
+        return clazz.isInstance(value);
+    }
+
+    public Optional<R> eval(Object value) {
+        return Optional.ofNullable(f.apply(value));
+    }
 }
