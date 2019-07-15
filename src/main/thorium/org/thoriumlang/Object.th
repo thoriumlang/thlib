@@ -1,0 +1,53 @@
+/*
+ * Copyright 2019 Christophe Pollet
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * ...
+ */
+type Object {
+    /**
+     * Returns the hash code of the object.
+     * Default implementation returns a random value based on memory address.
+     */
+    hash(): Integer;
+
+    /**
+     * Returns a string representation of this object.
+     * Default implementation returns a string with format Class#hash.
+     */
+    str(): String;
+
+    /**
+     * Returns whether the object implements a given type.
+     * Note: is(Object) always returns true.
+     */
+    is(t: Type): Boolean;
+
+    /**
+     * Returns whether the object is equal to another one.
+     * Default implementation returns true when both object are physically the same (i.e. same instance).
+     */
+    eq(o: Object): Boolean;
+
+    /**
+     * Returns whether the object matches another one (the pattern). This is useful for pattern matching.
+     * Default implementation returns true when
+     * - the pattern is of type Type and this object implements it;
+     * - the pattern is a function and applying it on this object returns true;
+     * - the pattern is the same instance as this object.
+     */
+    match(o: Object): Boolean; // Object might actually be Pattern
+}
