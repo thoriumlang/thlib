@@ -38,6 +38,7 @@ type Object {
 
     /**
      * Returns whether the object is equal to another one.
+     * If a.eq(b) is true then a.hash().eq(b.hash()) must be true as well.
      * Default implementation returns true when both object are physically the same (i.e. same instance).
      */
     eq(o: Object): Boolean;
