@@ -1,0 +1,3 @@
+type Application {
+  main(args: Array[String]): Integer;
+}
