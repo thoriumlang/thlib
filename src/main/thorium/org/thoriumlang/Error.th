@@ -25,7 +25,7 @@ class Error {
     public Error(message: String, cause: Error?) {
         this.message = message;
         this.cause = cause;
-        this.stacktrace = ...;
+        this.stacktrace = Stacktrace("...");
     }
 
     public Error(message: String) {
