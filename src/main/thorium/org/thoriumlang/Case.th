@@ -17,8 +17,8 @@
 /**
  * ...
  */
-class Case: Lazy[T] {
-    public Case(o: Object);
-    public when(p: Pattern, f: Function[?,T]): self;
-    public oherwise(f: Function[?,T]): self;
+class Case: Lazy[T, U] {
+    public Case(o: Object) {}
+    public when(p: Pattern, f: Function[T, U]): self {}
+    public oherwise(f: Function[T, U]): self {}
 }

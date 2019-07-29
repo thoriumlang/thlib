@@ -20,8 +20,8 @@
 class None {
     hash()           => 0;
     str()            => "none";
-    eq(o: Object)    => default
-    is(t: Type)      => default
+    eq(o: Object)    => return default
+    is(t: Type)      => return default
     match(o: Object) => Case(o)
                             .when(None, true)
                             .otherwise(false);

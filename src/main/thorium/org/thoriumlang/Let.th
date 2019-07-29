@@ -18,12 +18,12 @@
  * ...
  */
 class Let[I, O] {
-    public Let(v: I?, f: Function[I, O]);
+    public Let(v: I?, f: Function[I, O]) {}
 
     public eval(): O? {
-        Case(v)
+        return Case(v)
             .when(None, none)
             .otherwise(f.apply(v))
-            .eval()
+            .eval();
       }
 }
