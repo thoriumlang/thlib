@@ -1,0 +1,23 @@
+class If[T, F]: Lazy[T] | Lazy[F] {
+    val condition;
+    val trueValue;
+    val falseValue;
+
+    public If(
+       condition:  Lazy[Boolean],
+       trueValue:  Lazy[T],
+       falseValue: Lazy[F]
+    ) {
+        this.condition = condition;
+        this.trueValue = trueValue;
+        this.falseValue = falseValue;
+    }
+
+    public eval(): T | F {
+        /*{java
+        return condition.apply()
+            ? trueValue.apply()
+            : falseValue.apply();
+        }*/
+    }
+}
